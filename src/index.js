@@ -643,7 +643,7 @@ function finalizarPedido() {
 
   const msg = `*Pedido:*\n${items}\n\n*Total de itens:* ${qtdeFinal}\n*Valor total:* ${valorFinal}`;
   const encodedMsg = encodeURIComponent(msg);
-  const phone = '5562998092832';
+  const phone = '5577988438467';
   const url = `https://api.whatsapp.com/send?phone=${phone}&text=${encodedMsg}`;
 
   // Debugging
