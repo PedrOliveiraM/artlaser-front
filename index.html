@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="./styles/output.css" rel="stylesheet" />
+    <link rel="stylesheet" href="./styles/output.css" />
+    <meta name="theme-color" content="white" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <style>
+      #gridContainer {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: space-around; /* Alinhamento dos itens na linha */
+        align-items: stretch; /* Todos os itens terão a mesma altura */
+      }
+      .carousel-container {
+        position: relative;
+        max-width: 800px; /* Ajuste o tamanho máximo conforme necessário */
+        margin: 0 auto;
+        overflow: hidden;
+      }
+
+      .carousel {
+        display: flex;
+        transition: transform 0.3s ease;
+      }
+
+      .carousel-item {
+        min-width: 100%; /* Garante que cada item ocupe toda a largura do container */
+        flex: 0 0 auto; /* Garante que os itens não sejam redimensionados */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .carousel-item img {
+        max-width: 100%; /* Garante que a imagem não ultrapasse a largura do item */
+        max-height: 100%; /* Garante que a imagem não ultrapasse a altura do item */
+        object-fit: contain; /* Mantém a proporção da imagem sem distorcer */
+        border-radius: 8px; /* Borda arredondada, ajuste conforme necessário */
+      }
+    </style>
+    <title>Catálogo</title>
+  </head>
+  <body>
+    <!-- TODO: CABEÇALHO -->
+    <header class="flex justify-between items-center">
+      <div class="container-logo ml-3 flex gap-3">
+        <button id="btnSideMenu">
+          <img
+            class="w-7 h-7 text-red"
+            src="assets/ic_bars.svg"
+            alt="Menu lateral"
+          />
+        </button>
+        <button id="btnLogoHome">
+          <img class="w-36 h-10" src="assets/logo.png" alt="Logo" />
+        </button>
+      </div>
+
+      <button id="btnIcoGoToCart" class="mr-3">
+        <img class="w-8 h-8 #000000" src="assets/ic_cart.svg" alt="Carrinho" />
+      </button>
+    </header>
+
+    <div class="w-full px-3 mt-2 space-y-2">
+      <div
+        class="container-search flex justify-center items-center rounded-lg border-2 border-[#C8C8CC] px-3"
+      >
+        <input
+          id="inputSearchProduct"
+          class="barraDePesquisa w-full h-10 rounded-l-lg border-0 outline-none px-2"
+          type="text"
+          placeholder="Procure pelo produto..."
+        />
+        <button id="btnSearchProduct" class="size-5 text-black">
+          <img src="assets/ic_search.svg" alt="busca" />
+        </button>
+      </div>
+
+      <div id="carrossel" class="carousel-container md:w-full">
+        <div
+          id="banners"
+          class="h-28 md:w-full carousel relative flex justify-center"
+        >
+          <!-- Itens do carrossel serão adicionados dinamicamente aqui -->
+        </div>
+      </div>
+    </div>
+
+    <!-- READY: GRID DE ITENS -->
+    <main id="main">
+      <div
+        id="gridContainer"
+        class="grid md:grid-cols-4 grid-cols-2 md:gap-1 gap-7 mx-auto max-w-7xl px-2 mb-16"
+      ></div>
+    </main>
+
+    <!-- READY: MENU LATERAL -->
+    <div
+      id="sideMenu"
+      class="hidden fixed bg-black/60 h-screen w-screen inset-0"
+    >
+      <div class="bg-white h-screen w-2/3">
+        <div class="px-3 flex flex-col gap-2 h-at">
+          <h2>Seja Bem-Vindo à ArtLaser</h2>
+          <a
+            id="btnAdmLogin"
+            href="login.html"
+            class="flex gap-2 py-1 items-center bg-[#F4F5F7] px-5 rounded-full"
+          >
+            <img class="w-9 h-9" src="assets/ic_profile.svg" alt="profile" />
+            Administrador
+          </a>
+          <button
+            id="btnGoToCart"
+            class="flex gap-2 py-1 items-center bg-[#F4F5F7] px-5 rounded-full"
+          >
+            <img class="w-9 h-9" src="assets/ic_cart.svg" alt="Meu carrinho" />
+            Meu Carrinho
+          </button>
+          <div class="w-full h-px bg-gray-200"></div>
+          <div id="category" class="flex flex-col gap-2 w-full">
+            <h2 class="font-bold">Categorias</h2>
+            <div
+              id="containerCategorias"
+              class="container-categorias flex flex-col gap-2"
+            >
+              <button
+                id="btnTodos"
+                data-item="todos"
+                class="flex w-full items-center justify-between px-2 border-b-2 py-1 border-gray-200"
+              >
+                Todos os Itens
+                <i class="fa-solid fa-chevron-right"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="">
+            <h2 class="font-bold">Informações</h2>
+            <div class="container-informacoes flex flex-col gap-3">
+              <div
+                class="gap-2 py-1 items-center bg-[#F4F5F7] px-5 rounded-full"
+              >
+                <a
+                  class="flex gap-3 items-center text-lg"
+                  href="https://www.instagram.com/artlaser_crr/"
+                  ><i class="fa-brands fa-instagram"></i> Instagram</a
+                >
+              </div>
+              <div
+                class="gap-2 py-1 items-center bg-[#F4F5F7] px-5 rounded-full"
+              >
+                <a
+                  class="flex gap-3 items-center text-lg"
+                  href="http://wa.me/+557788438467"
+                  ><i class="fa-brands fa-whatsapp"></i> WhatsApp</a
+                >
+              </div>
+              <div
+                class="gap-2 py-1 items-center bg-[#F4F5F7] px-5 rounded-full"
+              >
+                <a
+                  class="flex gap-3 items-center text-lg"
+                  href="https://maps.app.goo.gl/GF1X96q52JfdfHhT6"
+                  ><i class="fa-solid fa-map-pin"></i>Localização</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- READY: Conteudo do carrinho -->
+    <div id="myCart" class="hidden carrinho px-4 py-6 space-y-2">
+      <div class="header flex justify-between py-4">
+        <h2 class="font-bold">Meu Carrinho</h2>
+        <button id="btnKeepBuy" class="flex gap-2 items-center">
+          <i class="fa-solid fa-arrow-left"></i>
+          continuar comprando
+        </button>
+      </div>
+
+      <div id="containerDePedidos" class="pedidos flex flex-col gap-2"></div>
+
+      <div class="Detalhes do pedido">
+        <h2 class="font-semibold">Seu Pedido</h2>
+        <div class="border border-zinc-900 rounded-lg p-4">
+          <div class="">
+            <div class="flex justify-between">
+              <p class="font-medium">Qtd. Itens:</p>
+              <p id="qtdeFinalItens">0</p>
+            </div>
+            <div class="flex justify-between">
+              <p class="font-medium">Total</p>
+              <p id="valorFinalItens">R$ 00,00</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-3 justify-center items-center">
+        <button id="cleanItensCarts" class="text-xs text-[#747474]">
+          <i class="fa-solid fa-trash"></i>
+          Limpar carrinho
+        </button>
+
+        <button
+          class="text-white font-bold text-sm bg-[#28A745] hover:bg-green-900 duration-500 w-40 h-10 rounded gap-2"
+          id="btnFinalizarPedido"
+        >
+          <i class="fa-solid fa-cart-shopping"></i> Finalizar Pedido
+        </button>
+      </div>
+    </div>
+
+    <!-- READY: Modal para adição de item -->
+    <div
+      id="modalAddCart"
+      class="fixed bg-black/60 inset-0 hidden justify-center items-center"
+    >
+      <div
+        class="bg-white w-80 h-80 rounded-lg flex flex-col justify-center items-center"
+      >
+        <div class="flex flex-col justify-center items-center p-5 gap-2">
+          <i class="fa-regular fa-circle-check fa-4x text-[#28A745]"></i>
+          <span>Produto adicionado ao carrinho.</span>
+        </div>
+        <div class="flex justify-center items-center flex-col gap-2">
+          <button
+            id="btnModalGoToCart"
+            class="bg-[#28A745] px-5 py-3 rounded-lg text-white"
+          >
+            Ir para carrinho
+          </button>
+          <button
+            id="btnModalStayHome"
+            class="bg-[#757575] px-5 py-3 rounded-lg text-white"
+          >
+            Continuar comprando
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- READY: Modal para finalização -->
+    <div
+      id="modalCartFinish"
+      class="fixed bg-black/60 inset-0 hidden justify-center items-center"
+    >
+      <div
+        class="bg-white w-80 h-80 rounded-lg flex flex-col justify-center items-center"
+      >
+        <div class="flex flex-col justify-center items-center p-5 gap-2">
+          <i class="fa-regular fa-circle-check fa-4x text-[#28A745]"></i>
+          <span class="font-semibold">Pedido Finalizado !</span>
+          <p class="text-center">
+            Parabéns, você será redirecionado para o whatsapp para mais
+            informações
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <footer class="flex flex-col justify-around items-center">
+      <div class="h-14 w-full bg-[#FDB933] flex justify-around items-center">
+        <a href="https://www.instagram.com/artlaser_crr/"
+          ><i class="fa-brands fa-instagram"></i> artlaser_crr</a
+        >
+
+        <a href="http://wa.me/+557788438467"
+          ><i class="fa-brands fa-whatsapp"></i> (77) 8843-8467</a
+        >
+      </div>
+
+      <div
+        class="container-autoral bg-[#333333] w-full flex justify-center text-center items-center py-2"
+      >
+        <a
+          target="_blank"
+          class="text-white"
+          href="https://maps.app.goo.gl/GF1X96q52JfdfHhT6"
+          >Artlaser | R. do Mercado, Correntina - BA, 47650-000 | Em frente a
+          churrascaria do carlinhos</a
+        >
+      </div>
+
+      <div
+        class="container-infos bg-[#303030] w-full flex justify-center gap-2 py-1"
+      >
+        <a
+          target="_blank"
+          class="text-white text-xs"
+          href="https://github.com/PedrOliveiraM"
+          >© 2024 Art Laser Desenvolvido por Pedro Oliveira</a
+        >
+      </div>
+    </footer>
+
+    <script src="src/index.js"></script>
+    <script></script>
+  </body>
+</html>
