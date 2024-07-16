@@ -54,7 +54,7 @@ function showCatalog(products) {
       const item = document.createElement('div');
       item.innerHTML = `
         <div class="container-item w-44 h-[500px] py-2 flex flex-col items-center  gap-1 mt-2 relative">
-          <img id="img" class="w-40 h-48 rounded-xl" src="${
+          <img id="img" class="w-40 h-48 rounded-xl" src="https://back-artlaser-c5e8836155b5.herokuapp.com/${
             product.src
           }" alt="imagem" />
           <h2 id="nameProduct" class="nameProduct text-center font-semibold">${
@@ -235,7 +235,7 @@ function createCarousel(banners) {
     const item = document.createElement('div');
     item.classList.add('carousel-item');
     item.innerHTML = `
-      <img class="w-screen h-auto rounded-xl" src="${banner.src}" alt="${banner.imageName}" />
+      <img class="w-screen h-auto rounded-xl" src="https://back-artlaser-c5e8836155b5.herokuapp.com/${banner.src}" alt="${banner.imageName}" />
     `;
     bannersContainer.appendChild(item);
   });
@@ -480,7 +480,7 @@ async function gerarPedido(id, quantidade) {
   >
     <img
       class="w-30 h-32 md:w-48 md:h-64 shrink-0 rounded-xl"
-      src="${pedido.src}"
+      src="https://back-artlaser-c5e8836155b5.herokuapp.com/${pedido.src}"
       alt="imagem do produto"
     />
     <span id="idDoPedido" class="hidden">${pedido._id}</span>

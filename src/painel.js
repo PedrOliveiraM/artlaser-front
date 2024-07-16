@@ -210,7 +210,10 @@ addProductBtn.addEventListener('click', () => {
 //TODO: MOSTRAR TELA DE ADIÇÃO DE BANNER
 const addBannerBtn = document.getElementById('addBannerBtn');
 const formAddBanner = document.getElementById('formAddBanner');
+
 addBannerBtn.addEventListener('click', () => {
+  const telaDeAlteracao = document.getElementById('telaDeAlteracao');
+  telaDeAlteracao.classList.add('hidden');
   formAddBanner.classList.toggle('hidden');
 });
 
@@ -307,7 +310,7 @@ function showItems(products) {
       const item = document.createElement('div');
       item.innerHTML = `
         <div class="container-item w-44 h-auto py-2 flex flex-col items-center  gap-1 mt-2 relative">
-          <img id="img" class="w-40 h-48 rounded-xl" src="${product.src}" alt="imagem" />
+          <img id="img" class="w-40 h-48 rounded-xl" src="https://back-artlaser-c5e8836155b5.herokuapp.com/${product.src}" alt="imagem" />
           <h2 id="nameProduct" class="nameProduct text-center font-semibold">${product.title}</h2>
           <div class="container-buy mt-1 flex flex-col gap-2 justify-center items-center">
             <button class="text-white font-bold text-sm bg-yellow-600 w-32 h-8 rounded gap-2 flex justify-center items-center" id="btnAltItem" data-id="${product._id}" >
@@ -415,7 +418,12 @@ function deleteProduct(productId) {
 const btnRemoveBanner = document.getElementById('delBannerBtn');
 btnRemoveBanner.addEventListener('click', () => {
   const telaDeAlteracao = document.getElementById('telaDeAlteracao');
+  const formAddProduct = document.getElementById('formAddProduct');
+  const formAddBanner = document.getElementById('formAddBanner');
+  formAddBanner.classList.add('hidden');
+  formAddProduct.classList.add('hidden');
   telaDeAlteracao.classList.toggle('hidden');
+
   mostrarBanners();
 });
 
@@ -434,11 +442,12 @@ function mostrarBanners() {
 
 function showBanners(banners) {
   const catalog = document.getElementById('gridContainer');
+  catalog.innerHTML = '';
   banners.forEach((banner) => {
     const item = document.createElement('div');
     item.innerHTML = `
           <div class="container-item w-44 h-auto py-2 flex flex-col items-center  gap-1 mt-2 relative">
-            <img id="img" class="w-40 h-48 rounded-xl" src="${banner.src}" alt="imagem" />
+            <img id="img" class="w-40 h-48 rounded-xl" src="https://back-artlaser-c5e8836155b5.herokuapp.com/${banner.src}" alt="imagem" />
             <h2 id="nameProduct" class="nameProduct text-center font-semibold">${banner.imageName}</h2>
             <div class="container-buy mt-1 flex justify-center items-center">
               <button class="text-white font-bold text-sm bg-red-600 w-32 h-8 rounded gap-2 flex justify-center items-center" id="btnDelItem" data-id="${banner._id}" >
@@ -503,12 +512,12 @@ function mostrarProdutos() {
   function showItems(products) {
     try {
       const catalog = document.getElementById('gridContainer');
-
+      catalog.innerHTML = '';
       products.forEach((product) => {
         const item = document.createElement('div');
         item.innerHTML = `
           <div class="container-item w-44 h-auto py-2 flex flex-col items-center  gap-1 mt-2 relative">
-            <img id="img" class="w-40 h-48 rounded-xl" src="${product.src}" alt="imagem" />
+            <img id="img" class="w-40 h-48 rounded-xl" src="https://back-artlaser-c5e8836155b5.herokuapp.com/${product.src}" alt="imagem" />
             <h2 id="nameProduct" class="nameProduct text-center font-semibold">${product.title}</h2>
             <div class="container-buy mt-1 flex justify-center items-center">
               <button class="text-white font-bold text-sm bg-red-600 w-32 h-8 rounded gap-2 flex justify-center items-center" id="btnDelItem" data-id="${product._id}" >
