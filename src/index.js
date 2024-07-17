@@ -231,36 +231,26 @@ function fetchBannerData() {
 function createCarousel(banners) {
   const bannersContainer = document.getElementById('banners');
 
-  banners.forEach((banner) => {
+  banners.forEach((banner, index) => {
     const item = document.createElement('div');
-    item.classList.add('carousel-item');
-    item.innerHTML = `
-      <img class="w-screen h-auto rounded-xl" src="https://back-artlaser-c5e8836155b5.herokuapp.com/${banner.src}" alt="${banner.imageName}" />
-    `;
+    item.classList.add('carousel-item', 'absolute', 'top-0', 'left-0', 'w-full', 'transition-opacity', 'duration-500', 'ease-in-out');
+    item.style.opacity = index === 0 ? '1' : '0'; // Exibir o primeiro banner inicialmente
+    const img = document.createElement('img');
+    img.classList.add('w-full', 'h-auto', 'rounded-xl');
+    img.src = `https://back-artlaser-c5e8836155b5.herokuapp.com/${banner.src}`;
+    img.alt = banner.imageName;
+    item.appendChild(img);
     bannersContainer.appendChild(item);
   });
-
-  const carouselItems = document.querySelectorAll('.carousel-item');
-  const totalItems = carouselItems.length;
-  const itemWidth = carouselItems[0].clientWidth;
-
-  let currentIndex = 0;
-
-  function showSlide(index) {
-    const offset = -index * itemWidth;
-    bannersContainer.style.transform = `translateX(${offset}px)`;
-    currentIndex = index;
+    // Função para rodar o carrossel
+    let currentIndex = 0;
+    const items = bannersContainer.querySelectorAll('.carousel-item');
+    setInterval(() => {
+      items[currentIndex].style.opacity = '0'; // Ocultar o banner atual
+      currentIndex = (currentIndex + 1) % items.length; // Próximo índice
+      items[currentIndex].style.opacity = '1'; // Exibir o próximo banner
+    }, 3000); // Trocar a cada 3 segundos
   }
-
-  // Inicia o carrossel
-  showSlide(currentIndex);
-
-  // Intervalo para avançar automaticamente
-  setInterval(() => {
-    currentIndex = (currentIndex + 1) % totalItems;
-    showSlide(currentIndex);
-  }, 4000); // Intervalo de 3 segundos para trocar os slides
-}
 
 // READY: MENU LATERAL
 const btnSideMenu = document.getElementById('btnSideMenu');
@@ -476,7 +466,7 @@ async function gerarPedido(id, quantidade) {
     // criando um pedido
     const item = document.createElement('div');
     item.innerHTML = `
-  <div class="Pedido-1 border-2 border-[#747474] rounded-lg h-36 flex md:p-2 md:h-auto items-center px-1"
+  <div class="Pedido-1 border-2 border-[#b1b1b1] rounded-lg h-36 flex md:p-2 md:h-auto items-center px-1"
   >
     <img
       class="w-30 h-32 md:w-48 md:h-64 shrink-0 rounded-xl"
@@ -488,7 +478,7 @@ async function gerarPedido(id, quantidade) {
       class="Infor space-y-5 flex flex-col justify-center items-center w-full"
     >
     <div class="flex justify-between">
-    <h2 class="font-semibold  text-center">${pedido.title}</h2>
+    <h2 class="font-medium  text-center">${pedido.title}</h2>
     <button
       class="btnRemove px-3 scroll-py-10 text-black font-semibold rounded-lg">
       <i class="fa-solid fa-trash text-red-600"></i>
@@ -499,23 +489,23 @@ async function gerarPedido(id, quantidade) {
       <div class="flex justify-between w-full">
         <div class="md:text-lg flex flex-col w-full px-2">
           <div class="flex justify-between">
-            <p class="font-semibold">Valor:</p>
+            <p class="font-medium">Valor:</p>
             <p id="valorDoPedido">R$ ${valor}</p>
           </div>
 
           <div class="flex justify-between">
-            <p class="font-semibold">Qtd:</p>
+            <p class="font-medium">Qtd:</p>
             <div
               class="quantidade bg-gray-300 rounded w-24 h-7 flex justify-center items-center"
             >
               <button
                 id="btnDelProduct"
-                class="btn btn-minus-rem scroll-py-10 text-black font-semibold rounded-lg"
+                class="btn btn-minus-rem scroll-py-10 text-black font-medium rounded-lg"
               >
                 -
               </button>
               <input
-                class="ml-2 text-center w-12 h-10 bg-transparent outline-none font-bold"
+                class="ml-2 text-center w-12 h-10 bg-transparent outline-none font-medium"
                 type="number"
                 name="quantidade"
                 id="quantidadeCart"
@@ -532,7 +522,7 @@ async function gerarPedido(id, quantidade) {
           </div>
 
           <div class="flex justify-between">
-            <p class="font-semibold">Valor Total:</p>
+            <p class="font-medium">Valor Total:</p>
             <p id="valorDoPedido">R$ ${valor * quantidade}</p>
           </div>
         </div>

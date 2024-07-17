@@ -316,7 +316,7 @@ function showItems(products) {
             <button class="text-white font-bold text-sm bg-yellow-600 w-32 h-8 rounded gap-2 flex justify-center items-center" id="btnAltItem" data-id="${product._id}" >
               <i class="fa-solid fa-pen-to-square"></i> Alterar
             </button>
-            <button class="text-white font-bold text-sm bg-red-600 w-32 h-8 rounded gap-2 flex justify-center items-center" id="btnAltItem" data-id="${product._id}" >
+            <button class="text-white font-bold text-sm bg-red-600 w-32 h-8 rounded gap-2 flex justify-center items-center" id="btnRemItem" data-id="${product._id}" >
               <i class="fa-solid fa-pen-to-square"></i> Remover
             </button>
           </div>
@@ -339,6 +339,15 @@ function showItems(products) {
 
     items.forEach((item) => {
       item.style.height = `${maxHeight}px`;
+    });
+
+    const buttonsRem = document.querySelectorAll('#btnRemItem');
+
+    // Adiciona um evento de clique a cada botão
+    buttonsRem.forEach((button) => {
+      button.addEventListener('click', (event) => {
+        deleteProduct(event.target.getAttribute('data-id'));
+      });
     });
 
     const buttons = document.querySelectorAll('#btnAltItem');
@@ -401,6 +410,7 @@ function deleteProduct(productId) {
   })
     .then((response) => {
       if (response.ok) {
+        alert('Produto excluído com sucesso!');
         return response.json(); // Se a resposta for bem-sucedida, converte para JSON
       }
       throw new Error('Erro ao excluir o produto');

@@ -35,41 +35,6 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
     />
-    <style>
-      #gridContainer {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 20px;
-        justify-content: space-around; /* Alinhamento dos itens na linha */
-        align-items: stretch; /* Todos os itens terão a mesma altura */
-      }
-      .carousel-container {
-        position: relative;
-        max-width: 800px; /* Ajuste o tamanho máximo conforme necessário */
-        margin: 0 auto;
-        overflow: hidden;
-      }
-
-      .carousel {
-        display: flex;
-        transition: transform 0.3s ease;
-      }
-
-      .carousel-item {
-        min-width: 100%; /* Garante que cada item ocupe toda a largura do container */
-        flex: 0 0 auto; /* Garante que os itens não sejam redimensionados */
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-
-      .carousel-item img {
-        max-width: 100%; /* Garante que a imagem não ultrapasse a largura do item */
-        max-height: 100%; /* Garante que a imagem não ultrapasse a altura do item */
-        object-fit: contain; /* Mantém a proporção da imagem sem distorcer */
-        border-radius: 8px; /* Borda arredondada, ajuste conforme necessário */
-      }
-    </style>
     <title>ArtLaser</title>
   </head>
   <body>
@@ -108,10 +73,11 @@
         </button>
       </div>
 
+      <!-- READY: CARROSSEL -->
       <div id="carrossel" class="carousel-container md:w-full">
         <div
           id="banners"
-          class="h-28 md:w-full carousel relative flex justify-center"
+          class="h-28 md:w-full carousel relative flex justify-center overflow-hidden"
         >
           <!-- Itens do carrossel serão adicionados dinamicamente aqui -->
         </div>
