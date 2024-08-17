@@ -26,7 +26,6 @@ function fetchProductBySearh() {
   )
     .then((response) => response.json())
     .then((data) => {
-      console.log(data);
       showCatalog(data);
     })
     .catch((error) => {
@@ -132,7 +131,6 @@ function fetchAllProducts() {
   fetch('https://back-artlaser-c5e8836155b5.herokuapp.com/pictures/')
     .then((response) => response.json())
     .then((data) => {
-      console.log(data);
       showCatalog(data);
     })
     .catch((error) => {
@@ -146,7 +144,6 @@ function fetchProductsByCategory(category) {
   )
     .then((response) => response.json())
     .then((data) => {
-      console.log(data);
       showCatalog(data);
     })
     .catch((error) => {
@@ -158,7 +155,6 @@ function fetchCategories() {
   fetch('https://back-artlaser-c5e8836155b5.herokuapp.com/pictures/')
     .then((response) => response.json())
     .then((data) => {
-      console.log(data);
       listCategorias(data);
     })
     .catch((error) => {
@@ -220,7 +216,6 @@ function fetchBannerData() {
   fetch('https://back-artlaser-c5e8836155b5.herokuapp.com/banner/')
     .then((response) => response.json())
     .then((data) => {
-      console.log('Fetch banner', data);
       createCarousel(data);
     })
     .catch((error) => {
@@ -233,24 +228,33 @@ function createCarousel(banners) {
 
   banners.forEach((banner, index) => {
     const item = document.createElement('div');
-    item.classList.add('carousel-item', 'absolute', 'top-0', 'left-0', 'w-full', 'transition-opacity', 'duration-500', 'ease-in-out');
+    item.classList.add(
+      'carousel-item',
+      'absolute',
+      'top-0',
+      'left-0',
+      'w-full',
+      'transition-opacity',
+      'duration-500',
+      'ease-in-out'
+    );
     item.style.opacity = index === 0 ? '1' : '0'; // Exibir o primeiro banner inicialmente
     const img = document.createElement('img');
-    img.classList.add('w-full', 'h-auto', 'rounded-xl','md:object-cover');
+    img.classList.add('w-full', 'h-auto', 'rounded-xl', 'md:object-cover');
     img.src = `https://back-artlaser-c5e8836155b5.herokuapp.com/${banner.src}`;
     img.alt = banner.imageName;
     item.appendChild(img);
     bannersContainer.appendChild(item);
   });
-    // Função para rodar o carrossel
-    let currentIndex = 0;
-    const items = bannersContainer.querySelectorAll('.carousel-item');
-    setInterval(() => {
-      items[currentIndex].style.opacity = '0'; // Ocultar o banner atual
-      currentIndex = (currentIndex + 1) % items.length; // Próximo índice
-      items[currentIndex].style.opacity = '1'; // Exibir o próximo banner
-    }, 3000); // Trocar a cada 3 segundos
-  }
+  // Função para rodar o carrossel
+  let currentIndex = 0;
+  const items = bannersContainer.querySelectorAll('.carousel-item');
+  setInterval(() => {
+    items[currentIndex].style.opacity = '0'; // Ocultar o banner atual
+    currentIndex = (currentIndex + 1) % items.length; // Próximo índice
+    items[currentIndex].style.opacity = '1'; // Exibir o próximo banner
+  }, 3000); // Trocar a cada 3 segundos
+}
 
 // READY: MENU LATERAL
 const btnSideMenu = document.getElementById('btnSideMenu');
@@ -350,8 +354,6 @@ document.body.addEventListener('click', (event) => {
     const quantity = parseInt(
       product.querySelector('input[name="quantidade"]').value
     );
-
-    console.log('Adicionar ao carrinho:', productId, quantity);
     gerarPedido(productId, quantity);
   }
 });
@@ -374,12 +376,9 @@ async function verificarValorAtacado(id, quantidade) {
   );
   const pedido = await response.json();
 
-  console.log('VERIFICAR VALOR ATACADO: pedido', pedido);
   if (quantidade >= pedido.qtdMin) {
-    console.log('pedido.wholesale', pedido.wholesale);
     return pedido.wholesale;
   } else {
-    console.log('pedido.wholesale', pedido.wholesale);
     return pedido.retail;
   }
 }
@@ -408,24 +407,19 @@ function uptadeTotal() {
     sumQtde += Number(pedido.quantidade);
     sumValor += Number(pedido.valorTotal);
   });
-  console.log(sumValor);
   qtdeFinalItens.innerText = sumQtde;
   valorFinalItens.innerText = `R$ ${sumValor.toFixed(2)}`;
-  console.log(sumValor);
 }
 
 // READY: GERAR PEDIDO
 async function gerarPedido(id, quantidade) {
   //buscar o produto pelo id :
-  console.log(id);
-  console.log(quantidade);
 
   const response = await fetch(
     `https://back-artlaser-c5e8836155b5.herokuapp.com/pictures/${id}`
   );
   const pedido = await response.json();
 
-  console.log(pedido);
   // container onde vai ficar
   const containerDePedidos = document.getElementById('containerDePedidos');
 
@@ -637,7 +631,6 @@ function finalizarPedido() {
   const url = `https://api.whatsapp.com/send?phone=${phone}&text=${encodedMsg}`;
 
   // Debugging
-  console.log('URL gerada:', url);
 
   // Abrir o link do WhatsApp em uma nova aba
   window.open(url, '_self');
