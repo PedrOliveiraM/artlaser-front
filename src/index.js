@@ -236,7 +236,7 @@ function createCarousel(banners) {
     item.classList.add('carousel-item', 'absolute', 'top-0', 'left-0', 'w-full', 'transition-opacity', 'duration-500', 'ease-in-out');
     item.style.opacity = index === 0 ? '1' : '0'; // Exibir o primeiro banner inicialmente
     const img = document.createElement('img');
-    img.classList.add('w-full', 'h-auto', 'rounded-xl');
+    img.classList.add('w-full', 'h-auto', 'rounded-xl','md:object-cover');
     img.src = `https://back-artlaser-c5e8836155b5.herokuapp.com/${banner.src}`;
     img.alt = banner.imageName;
     item.appendChild(img);
